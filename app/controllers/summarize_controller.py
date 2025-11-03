@@ -13,8 +13,8 @@ from app.schemas.summarize import (
     SummarizeAIIn,
     SummarizeAIOut,
 )
-from app.services.text.summarizer_service import extractive_summary
-from app.services.text.ai_summarizer_service import summarize_ai_text
+from app.services.text.summarize_service import extractive_summary
+from app.services.text.ai_summarize_service import summarize_ai_text
 
 # Global guardrail to prevent abuse and control latency.
 MAX_CHARS = 20000

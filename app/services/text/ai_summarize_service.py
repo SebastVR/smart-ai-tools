@@ -98,6 +98,7 @@ def _summarize_block(block: str, min_length: int, max_length: int) -> str:
         min_length=min_length,
         do_sample=False,
         truncation=True,
+        clean_up_tokenization_spaces=True,
     )[0]["summary_text"]
     return out.strip()
 
