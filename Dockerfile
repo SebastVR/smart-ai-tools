@@ -45,4 +45,4 @@ ENV AI_SUMMARY_MODEL_PATH=/models/distilbart-cnn-12-6
 EXPOSE 8000
 
 # Run app (bind to dynamic $PORT from Railway)
-CMD ["bash", "-lc", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
+CMD ["bash", "-lc", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
