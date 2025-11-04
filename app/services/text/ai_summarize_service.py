@@ -13,7 +13,8 @@ from typing import List
 
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
-DEFAULT_MODEL = os.getenv("AI_SUMMARY_MODEL", "sshleifer/distilbart-cnn-12-6")
+# DEFAULT_MODEL = os.getenv("AI_SUMMARY_MODEL", "sshleifer/distilbart-cnn-12-6")
+DEFAULT_MODEL = os.getenv("AI_SUMMARY_MODEL", "t5-small")
 LOCAL_MODEL_PATH = os.getenv("AI_SUMMARY_MODEL_PATH")  # e.g., /models/distilbart-cnn-12-6
 MODEL_SOURCE = LOCAL_MODEL_PATH if (LOCAL_MODEL_PATH and os.path.isdir(LOCAL_MODEL_PATH)) else DEFAULT_MODEL
 
