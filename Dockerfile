@@ -10,7 +10,6 @@ ENV PIP_NO_CACHE_DIR=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     HF_HOME=/root/.cache/huggingface \
-    TRANSFORMERS_CACHE=/root/.cache/huggingface \
     HF_HUB_DISABLE_TELEMETRY=1
 
 # System dependencies (certificates + git)
@@ -45,5 +44,5 @@ ENV AI_SUMMARY_MODEL_PATH=/models/distilbart-cnn-12-6
 
 EXPOSE 8000
 
-# Run app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run app (bind to dynamic $PORT from Railway)
+CMD ["bash", "-lc", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
