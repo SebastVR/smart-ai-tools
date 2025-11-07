@@ -22,7 +22,7 @@ from typing import Dict, Any, Tuple
 import whisper  # open-source speech-to-text
 
 
-DEFAULT_WHISPER_MODEL = os.getenv("WHISPER_MODEL", "small")
+DEFAULT_WHISPER_MODEL = os.getenv("WHISPER_MODEL", "tiny")
 
 
 @lru_cache(maxsize=1)
