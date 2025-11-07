@@ -11,3 +11,10 @@ safetensors>=0.4.3
 
 # --- NumPy for tokenization/utils ---
 numpy>=1.26,<3
+
+# ASR (open-source)
+# whisper==1.1.10
+openai-whisper==20250625
+
+# --- multipart uploads ---
+python-multipart>=0.0.9,<0.1
