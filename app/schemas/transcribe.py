@@ -44,3 +44,40 @@ class TranscribeVideoOut(BaseModel):
     summary_model_used: Optional[str] = Field(
         default=None, description="Identifier of the summarization model used (if do_summary=true)."
     )
+
+
+class TranscribeAudioQuery(BaseModel):
+    do_summary: bool = Field(
+        default=True,
+        description="If true, also generate an abstractive summary of the transcript.",
+    )
+    min_length: int = Field(
+        default=60,
+        ge=16,
+        le=512,
+        description="Minimum length for the generated summary.",
+    )
+    max_length: int = Field(
+        default=160,
+        ge=32,
+        le=1024,
+        description="Maximum length for the generated summary.",
+    )
+
+
+class TranscribeAudioOut(BaseModel):
+    language: str = Field(..., description="Detected language code.")
+    duration_seconds: float = Field(
+        ..., description="Approximate duration of the processed audio in seconds."
+    )
+    transcript: str = Field(..., description="Full verbatim transcription of the audio.")
+    summary: Optional[str] = Field(
+        None,
+        description="Optional abstractive summary of the transcript.",
+    )
+    asr_model_used: str = Field(
+        ..., description="Identifier of the ASR model used."
+    )
+    summary_model_used: Optional[str] = Field(
+        None, description="Identifier of the summarization model, if used."
+    )

@@ -11,8 +11,14 @@ from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, status
 from app.schemas.transcribe import (
     TranscribeVideoOut,
     TranscribeVideoQuery,
+    TranscribeAudioOut,
+    TranscribeAudioQuery,
 )
-from app.controllers.transcribe_controller import transcribe_video_action
+from app.controllers.transcribe_controller import (
+    transcribe_video_action,
+    transcribe_audio_action,
+)
+
 
 router = APIRouter(prefix="/transcribe", tags=["transcribe"])
 
@@ -40,6 +46,32 @@ async def transcribe_video(
         )
 
     return transcribe_video_action(
+        file=file,
+        do_summary=q.do_summary,
+        min_length=q.min_length,
+        max_length=q.max_length,
+    )
+
+
+@router.post("/audio", response_model=TranscribeAudioOut, status_code=status.HTTP_200_OK)
+async def transcribe_audio(
+    file: UploadFile = File(..., description="Audio file (e.g. MP3) to be transcribed."),
+    q: TranscribeAudioQuery = Depends(),
+):
+    """
+    Transcribe an audio file (e.g. MP3) and optionally summarize it.
+
+    - Uses Whisper (CPU-only) for transcription.
+    - Keeps the original language.
+    - Optional abstractive summary powered by the local summarization model.
+    """
+    if not (file.content_type or "").lower().startswith("audio/"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Unsupported content type. Please upload a valid audio file.",
+        )
+
+    return transcribe_audio_action(
         file=file,
         do_summary=q.do_summary,
         min_length=q.min_length,
